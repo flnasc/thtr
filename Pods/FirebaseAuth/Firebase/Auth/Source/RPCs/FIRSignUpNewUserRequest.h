@@ -31,6 +31,11 @@ NS_ASSUME_NONNULL_BEGIN
 /** @property password
     @brief The password inputed by the user.
  */
+@property(nonatomic, copy, nullable) NSString *username;
+
+/** @property username
+    @brief The username inputed by the user.
+ */
 @property(nonatomic, copy, nullable) NSString *password;
 
 /** @property displayName
@@ -62,6 +67,7 @@ NS_ASSUME_NONNULL_BEGIN
     @param requestConfiguration An object containing configurations to be added to the request.
  */
 - (nullable instancetype)initWithEmail:(nullable NSString *)email
+                              username:(nullable NSString *)username
                               password:(nullable NSString *)password
                            displayName:(nullable NSString *)displayName
                   requestConfiguration:(FIRAuthRequestConfiguration *)requestConfiguration

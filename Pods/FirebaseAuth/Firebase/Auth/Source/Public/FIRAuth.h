@@ -644,6 +644,7 @@ NS_SWIFT_NAME(Auth)
     @remarks See `FIRAuthErrors` for a list of error codes that are common to all API methods.
  */
 - (void)createUserWithEmail:(NSString *)email
+                   username:(NSString *)username
                    password:(NSString *)password
                  completion:(nullable FIRAuthDataResultCallback)completion;
 
@@ -657,11 +658,12 @@ NS_SWIFT_NAME(Auth)
         canceled. Invoked asynchronously on the main thread in the future.
  */
 - (void)createUserAndRetrieveDataWithEmail:(NSString *)email
+                                  username:(NSString *)username
                                   password:(NSString *)password
                                 completion:(nullable FIRAuthDataResultCallback)completion
                                     DEPRECATED_MSG_ATTRIBUTE(
-                                      "Please use createUserWithEmail:password:completion: for"
-                                      " Objective-C or createUser(withEmail:password:completion:)"
+                                      "Please use createUserWithEmail:username:password:completion: for"
+                                      " Objective-C or createUser(withEmail:username:password:completion:)"
                                       " for Swift instead.");
 
 /** @fn confirmPasswordResetWithCode:newPassword:completion:

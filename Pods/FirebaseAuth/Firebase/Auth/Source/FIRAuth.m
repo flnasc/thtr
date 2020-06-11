@@ -988,12 +988,14 @@ static NSMutableDictionary *gKeychainServiceNameForAppName;
 }
 
 - (void)createUserWithEmail:(NSString *)email
+                   username:(NSString *)username
                    password:(NSString *)password
                  completion:(nullable FIRAuthDataResultCallback)completion {
   dispatch_async(FIRAuthGlobalWorkQueue(), ^{
     FIRAuthDataResultCallback decoratedCallback =
         [self signInFlowAuthDataResultCallbackByDecoratingCallback:completion];
     [self internalCreateUserWithEmail:email
+                             username:username
                              password:password
                            completion:^(FIRSignUpNewUserResponse *_Nullable response,
                                         NSError *_Nullable error) {
@@ -1021,12 +1023,14 @@ static NSMutableDictionary *gKeychainServiceNameForAppName;
 }
 
 - (void)createUserAndRetrieveDataWithEmail:(NSString *)email
+                                  username:(NSString *)username
                                   password:(NSString *)password
                                 completion:(nullable FIRAuthDataResultCallback)completion {
   dispatch_async(FIRAuthGlobalWorkQueue(), ^{
     FIRAuthDataResultCallback decoratedCallback =
         [self signInFlowAuthDataResultCallbackByDecoratingCallback:completion];
     [self internalCreateUserWithEmail:email
+                             username:username
                              password:password
                            completion:^(FIRSignUpNewUserResponse *_Nullable response,
                                         NSError *_Nullable error) {
@@ -1544,14 +1548,17 @@ static NSDictionary<NSString *, NSString *> *FIRAuthParseURL(NSString *urlString
     @brief Makes a backend request attempting to create a new Firebase user given an email address
         and password.
     @param email The email address used to create the new Firebase user.
+    @param username The username that the user will use in-app
     @param password The password used to create the new Firebase user.
     @param completion Optionally; a block which is invoked when the request finishes.
  */
 - (void)internalCreateUserWithEmail:(NSString *)email
+                           username:(NSString *)username
                            password:(NSString *)password
                          completion:(nullable FIRSignupNewUserCallback)completion {
   FIRSignUpNewUserRequest *request =
       [[FIRSignUpNewUserRequest alloc] initWithEmail:email
+                                            username:username
                                             password:password
                                          displayName:nil
                                 requestConfiguration:_requestConfiguration];

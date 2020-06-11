@@ -24,6 +24,19 @@ class SignUpViewController: UITableViewController {
         $0.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         $0.translatesAutoresizingMaskIntoConstraints = false
     }
+    
+    let usernameInput: UITextField = create{
+        $0.attributedPlaceholder = NSAttributedString(string: "nicolenigro", attributes: [.foregroundColor: Themer.DarkTheme.placeholderText])
+        $0.textAlignment = .right
+        $0.autocorrectionType = .no
+        $0.autocapitalizationType = .none
+    }
+    
+    let usernameLabel: THLabel = create {
+        $0.text = "Username"
+        $0.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        $0.translatesAutoresizingMaskIntoConstraints = false
+    }
 
     let passwordInput: UITextField = create {
         $0.attributedPlaceholder = NSAttributedString(string: "••••••••", attributes: [.foregroundColor: Themer.DarkTheme.placeholderText])
@@ -42,6 +55,12 @@ class SignUpViewController: UITableViewController {
     }
 
     let emailField: UIStackView = create {
+        $0.axis = .horizontal
+        $0.spacing = 8
+        $0.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
+    let usernameField: UIStackView = create {
         $0.axis = .horizontal
         $0.spacing = 8
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -97,6 +116,9 @@ class SignUpViewController: UITableViewController {
 
         emailField.addArrangedSubview(emailLabel)
         emailField.addArrangedSubview(emailInput)
+        
+        usernameField.addArrangedSubview(usernameLabel)
+        usernameField.addArrangedSubview(usernameInput)
 
         passwordField.addArrangedSubview(passwordLabel)
         passwordField.addArrangedSubview(passwordInput)
@@ -125,7 +147,7 @@ class SignUpViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
+        return 5
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -137,10 +159,12 @@ class SignUpViewController: UITableViewController {
         case 0:
             subview = emailField
         case 1:
-            subview = passwordField
+            subview = usernameField
         case 2:
-            subview = passwordConfirmField
+            subview = passwordField
         case 3:
+            subview = passwordConfirmField
+        case 4:
             subview = confirmButtonContainer
         default:
             fatalError("That's not how math works")
@@ -170,6 +194,7 @@ class SignUpViewController: UITableViewController {
     @objc
     func submitForm() {
         guard let email = emailInput.text,
+            let username = usernameInput.text,
             let password = passwordInput.text,
             let passwordConf = passwordConfirmInput.text else {
                 return
@@ -186,7 +211,7 @@ class SignUpViewController: UITableViewController {
             return
         }
 
-        Auth.auth().createUser(withEmail: email, password: password) { (authResult, error) in
+        Auth.auth().createUser(withEmail: email, username: username, password: password) { (authResult, error) in
             guard error == nil else {
                 let alert = UIAlertController(title: "Error", message: error?.localizedDescription, preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))

@@ -31,6 +31,11 @@ static NSString *const kEmailKey = @"email";
 /** @var kPasswordKey
     @brief The key for the "password" value in the request.
  */
+static NSString *const kUsernameKey = @"username";
+
+/** @var kUsernameKey
+    @brief The key for the "kDisplayName" value in the request.
+ */
 static NSString *const kPasswordKey = @"password";
 
 /** @var kDisplayNameKey
@@ -46,12 +51,14 @@ static NSString *const kReturnSecureTokenKey = @"returnSecureToken";
 @implementation FIRSignUpNewUserRequest
 
 - (nullable instancetype)initWithEmail:(nullable NSString *)email
+                              username:(nullable NSString *)username
                               password:(nullable NSString *)password
                            displayName:(nullable NSString *)displayName
                   requestConfiguration:(FIRAuthRequestConfiguration *)requestConfiguration {
   self = [super initWithEndpoint:kSignupNewUserEndpoint requestConfiguration:requestConfiguration];
   if (self) {
     _email = [email copy];
+    _username = [username copy];
     _password = [password copy];
     _displayName = [displayName copy];
     _returnSecureToken = YES;
@@ -62,6 +69,7 @@ static NSString *const kReturnSecureTokenKey = @"returnSecureToken";
 - (nullable instancetype)initWithRequestConfiguration:
     (FIRAuthRequestConfiguration *)requestConfiguration {
     self = [self initWithEmail:nil
+                      username:nil
                       password:nil
                    displayName:nil
           requestConfiguration:requestConfiguration];
@@ -72,6 +80,9 @@ static NSString *const kReturnSecureTokenKey = @"returnSecureToken";
   NSMutableDictionary *postBody = [NSMutableDictionary dictionary];
   if (_email) {
     postBody[kEmailKey] = _email;
+  }
+  if(_username){
+    postBody[kUsernameKey] = _username;
   }
   if (_password) {
     postBody[kPasswordKey] = _password;

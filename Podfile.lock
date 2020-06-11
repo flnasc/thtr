@@ -87,7 +87,7 @@ DEPENDENCIES:
   - Firebase/Storage
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  trunk:
     - Crashlytics
     - Fabric
     - Firebase
@@ -123,4 +123,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: fa5840083bfc3cf649d23cb271da0c057de67000
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.8.4
