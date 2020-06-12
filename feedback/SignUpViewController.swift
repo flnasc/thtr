@@ -25,6 +25,12 @@ class SignUpViewController: UITableViewController {
         $0.translatesAutoresizingMaskIntoConstraints = false
     }
     
+    let emailField: UIStackView = create {
+        $0.axis = .horizontal
+        $0.spacing = 8
+        $0.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
     let usernameInput: UITextField = create{
         $0.attributedPlaceholder = NSAttributedString(string: "nicolenigro", attributes: [.foregroundColor: Themer.DarkTheme.placeholderText])
         $0.textAlignment = .right
@@ -37,6 +43,107 @@ class SignUpViewController: UITableViewController {
         $0.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         $0.translatesAutoresizingMaskIntoConstraints = false
     }
+    
+    let usernameField: UIStackView = create {
+        $0.axis = .horizontal
+        $0.spacing = 8
+        $0.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
+    let firstnameInput: UITextField = create{
+        $0.attributedPlaceholder = NSAttributedString(string: "Nicole", attributes: [.foregroundColor: Themer.DarkTheme.placeholderText])
+        $0.textAlignment = .right
+        $0.autocorrectionType = .no
+        $0.autocapitalizationType = .none
+    }
+    
+    let firstnameLabel: THLabel = create {
+        $0.text = "First Name"
+        $0.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        $0.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
+    let firstnameField: UIStackView = create {
+        $0.axis = .horizontal
+        $0.spacing = 8
+        $0.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
+    let lastnameInput: UITextField = create{
+        $0.attributedPlaceholder = NSAttributedString(string: "Nigro", attributes: [.foregroundColor: Themer.DarkTheme.placeholderText])
+        $0.textAlignment = .right
+        $0.autocorrectionType = .no
+        $0.autocapitalizationType = .none
+    }
+    
+    let lastnameLabel: THLabel = create {
+        $0.text = "Last Name"
+        $0.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        $0.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
+    let lastnameField: UIStackView = create {
+        $0.axis = .horizontal
+        $0.spacing = 8
+        $0.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
+    let ageInput: UITextField = create{
+        $0.attributedPlaceholder = NSAttributedString(string: "20", attributes: [.foregroundColor: Themer.DarkTheme.placeholderText])
+        $0.textAlignment = .right
+        $0.autocorrectionType = .no
+        $0.autocapitalizationType = .none
+    }
+    
+    let ageLabel: THLabel = create {
+        $0.text = "Age"
+        $0.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        $0.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
+    let ageField: UIStackView = create {
+        $0.axis = .horizontal
+        $0.spacing = 8
+        $0.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
+    let phonenumberInput: UITextField = create{
+        $0.attributedPlaceholder = NSAttributedString(string: "123-456-7890", attributes: [.foregroundColor: Themer.DarkTheme.placeholderText])
+        $0.textAlignment = .right
+        $0.autocorrectionType = .no
+        $0.autocapitalizationType = .none
+    }
+    
+    let phonenumberLabel: THLabel = create {
+        $0.text = "Phone Number"
+        $0.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        $0.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
+    let phonenumberField: UIStackView = create {
+        $0.axis = .horizontal
+        $0.spacing = 8
+        $0.translatesAutoresizingMaskIntoConstraints = false
+    }
+
+    let cityInput: UITextField = create{
+        $0.attributedPlaceholder = NSAttributedString(string: "New York City", attributes: [.foregroundColor: Themer.DarkTheme.placeholderText])
+        $0.textAlignment = .right
+        $0.autocorrectionType = .no
+        $0.autocapitalizationType = .none
+    }
+    
+    let cityLabel: THLabel = create {
+        $0.text = "Home City/Town"
+        $0.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        $0.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
+    let cityField: UIStackView = create {
+        $0.axis = .horizontal
+        $0.spacing = 8
+        $0.translatesAutoresizingMaskIntoConstraints = false
+    }
 
     let passwordInput: UITextField = create {
         $0.attributedPlaceholder = NSAttributedString(string: "••••••••", attributes: [.foregroundColor: Themer.DarkTheme.placeholderText])
@@ -44,6 +151,18 @@ class SignUpViewController: UITableViewController {
         $0.isSecureTextEntry = true
         $0.autocorrectionType = .no
         $0.autocapitalizationType = .none
+    }
+    
+    let passwordLabel: THLabel = create {
+        $0.text = "Password"
+        $0.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        $0.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
+    let passwordField: UIStackView = create {
+        $0.axis = .horizontal
+        $0.spacing = 8
+        $0.translatesAutoresizingMaskIntoConstraints = false
     }
 
     let passwordConfirmInput: UITextField = create {
@@ -54,33 +173,9 @@ class SignUpViewController: UITableViewController {
         $0.autocapitalizationType = .none
     }
 
-    let emailField: UIStackView = create {
-        $0.axis = .horizontal
-        $0.spacing = 8
-        $0.translatesAutoresizingMaskIntoConstraints = false
-    }
-    
-    let usernameField: UIStackView = create {
-        $0.axis = .horizontal
-        $0.spacing = 8
-        $0.translatesAutoresizingMaskIntoConstraints = false
-    }
-
-    let passwordLabel: THLabel = create {
-        $0.text = "Password"
-        $0.setContentHuggingPriority(.defaultHigh, for: .horizontal)
-        $0.translatesAutoresizingMaskIntoConstraints = false
-    }
-
     let passwordConfirmLabel: THLabel = create {
         $0.text = "Confirm Password"
         $0.setContentHuggingPriority(.defaultHigh, for: .horizontal)
-        $0.translatesAutoresizingMaskIntoConstraints = false
-    }
-
-    let passwordField: UIStackView = create {
-        $0.axis = .horizontal
-        $0.spacing = 8
         $0.translatesAutoresizingMaskIntoConstraints = false
     }
 
@@ -119,6 +214,21 @@ class SignUpViewController: UITableViewController {
         
         usernameField.addArrangedSubview(usernameLabel)
         usernameField.addArrangedSubview(usernameInput)
+        
+        firstnameField.addArrangedSubview(firstnameLabel)
+        firstnameField.addArrangedSubview(firstnameInput)
+        
+        lastnameField.addArrangedSubview(lastnameLabel)
+        lastnameField.addArrangedSubview(lastnameInput)
+        
+        ageField.addArrangedSubview(ageLabel)
+        ageField.addArrangedSubview(ageInput)
+        
+        phonenumberField.addArrangedSubview(phonenumberLabel)
+        phonenumberField.addArrangedSubview(phonenumberInput)
+        
+        cityField.addArrangedSubview(cityLabel)
+        cityField.addArrangedSubview(cityInput)
 
         passwordField.addArrangedSubview(passwordLabel)
         passwordField.addArrangedSubview(passwordInput)
@@ -147,7 +257,7 @@ class SignUpViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return 10
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -161,10 +271,20 @@ class SignUpViewController: UITableViewController {
         case 1:
             subview = usernameField
         case 2:
-            subview = passwordField
+            subview = firstnameField
         case 3:
-            subview = passwordConfirmField
+            subview = lastnameField
         case 4:
+            subview = ageField
+        case 5:
+            subview = phonenumberField
+        case 6:
+            subview = cityField
+        case 7:
+            subview = passwordField
+        case 8:
+            subview = passwordConfirmField
+        case 9:
             subview = confirmButtonContainer
         default:
             fatalError("That's not how math works")
@@ -195,6 +315,11 @@ class SignUpViewController: UITableViewController {
     func submitForm() {
         guard let email = emailInput.text,
             let username = usernameInput.text,
+            let firstname = firstnameInput.text,
+            let lastname = lastnameInput.text,
+            let age = ageInput.text,
+            let city = cityInput.text,
+            let phonenumber = phonenumberInput.text,
             let password = passwordInput.text,
             let passwordConf = passwordConfirmInput.text else {
                 return
@@ -211,7 +336,7 @@ class SignUpViewController: UITableViewController {
             return
         }
 
-        Auth.auth().createUser(withEmail: email, username: username, password: password) { (authResult, error) in
+        Auth.auth().createUser(withEmail: email, username: username, firstname: firstname, lastname: lastname, age: age, city: city, phonenumber: phonenumber, password: password) { (authResult, error) in
             guard error == nil else {
                 let alert = UIAlertController(title: "Error", message: error?.localizedDescription, preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))

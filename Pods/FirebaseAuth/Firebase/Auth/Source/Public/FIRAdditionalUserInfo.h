@@ -47,6 +47,31 @@ NS_SWIFT_NAME(AdditionalUserInfo)
  */
 @property(nonatomic, readonly, nullable) NSString *username;
 
+/** @property firstname
+    @brief first name of the user.
+ */
+@property(nonatomic, readonly, nullable) NSString *firstname;
+
+/** @property lastname
+    @brief last name of the user.
+ */
+@property(nonatomic, readonly, nullable) NSString *lastname;
+
+/** @property age
+    @brief age of the user.
+ */
+@property(nonatomic, readonly, nullable) NSString *age;
+
+/** @property city
+    @brief city the user lives in.
+ */
+@property(nonatomic, readonly, nullable) NSString *city;
+
+/** @property phonenumber
+    @brief phone number  of the user.
+ */
+@property(nonatomic, readonly, nullable) NSString *phonenumber;
+
 /** @property newUser
     @brief Indicates whether or not the current user was signed in for the first time.
  */

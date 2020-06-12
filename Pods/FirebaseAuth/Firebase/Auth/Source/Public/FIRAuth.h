@@ -645,6 +645,11 @@ NS_SWIFT_NAME(Auth)
  */
 - (void)createUserWithEmail:(NSString *)email
                    username:(NSString *)username
+                  firstname:(NSString *)firstname
+                   lastname:(NSString *)lastname
+                        age:(NSString *)age
+                       city:(NSString *)city
+                phonenumber:(NSString *)phonenumber
                    password:(NSString *)password
                  completion:(nullable FIRAuthDataResultCallback)completion;
 
@@ -653,17 +658,28 @@ NS_SWIFT_NAME(Auth)
         `createUser(withEmail:password:completion:)` for Swift instead.
 
     @param email The user's email address.
+    @param username The user's desired username.
+    @param firstname The user's first name (optional).
+    @param lastname The user's last name (optional).
+    @param age The user's age (optional).
+    @param city The user's city (optional).
+    @param phonenumber The user's phone number (optional).
     @param password The user's desired password.
     @param completion Optionally; a block which is invoked when the sign up flow finishes, or is
         canceled. Invoked asynchronously on the main thread in the future.
  */
 - (void)createUserAndRetrieveDataWithEmail:(NSString *)email
                                   username:(NSString *)username
+                                 firstname:(NSString *)firstname
+                                  lastname:(NSString *)lastname
+                                       age:(NSString *)age
+                                      city:(NSString *)city
+                               phonenumber:(NSString *)phonenumber
                                   password:(NSString *)password
                                 completion:(nullable FIRAuthDataResultCallback)completion
                                     DEPRECATED_MSG_ATTRIBUTE(
-                                      "Please use createUserWithEmail:username:password:completion: for"
-                                      " Objective-C or createUser(withEmail:username:password:completion:)"
+                                      "Please use createUserWithEmail:username:firstname:lastname:age:city:phonenumber:password:completion: for"
+                                      " Objective-C or createUser(withEmail:username:firstname:lastname:age:city:phonenumber:password:completion:)"
                                       " for Swift instead.");
 
 /** @fn confirmPasswordResetWithCode:newPassword:completion:

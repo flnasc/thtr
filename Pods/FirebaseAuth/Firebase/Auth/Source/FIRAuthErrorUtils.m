@@ -271,6 +271,11 @@ static NSString *const kFIRAuthErrorMessageInvalidContinueURI =
  */
 static NSString *const kFIRAuthErrorMessageMissingEmail = @"An email address must be provided.";
 
+/** @var kFIRAuthErrorMessageMissingUsername
+    @brief Message for @c FIRAuthErrorCodeMissingUsername error code.
+ */
+static NSString *const kFIRAuthErrorMessageMissingUsername = @"A username must be provided.";
+
 /** @var kFIRAuthErrorMessageMissingContinueURI
     @brief Message for @c FIRAuthErrorCodeMissingContinueURI error code.
  */
@@ -579,6 +584,8 @@ static NSString *FIRAuthErrorDescription(FIRAuthErrorCode code) {
       return kFIRAuthErrorMessageLocalPlayerNotAuthenticated;
     case FIRAuthErrorCodeGameKitNotLinked:
       return kFIRAuthErrorMessageGameKitNotLinked;
+    case FIRAuthErrorCodeMissingUsername:
+      return kFIRAuthErrorMessageMissingUsername;
   }
 }
 
@@ -712,6 +719,8 @@ static NSString *const FIRAuthErrorCodeString(FIRAuthErrorCode code) {
       return @"ERROR_LOCAL_PLAYER_NOT_AUTHENTICATED";
     case FIRAuthErrorCodeGameKitNotLinked:
       return @"ERROR_GAME_KIT_NOT_LINKED";
+    case FIRAuthErrorCodeMissingUsername:
+      return @"ERROR_MISSING_USERNAME";
   }
 }
 
@@ -1032,6 +1041,10 @@ static NSString *const FIRAuthErrorCodeString(FIRAuthErrorCode code) {
 
 + (NSError *)missingEmailErrorWithMessage:(nullable NSString *)message {
   return [self errorWithCode:FIRAuthInternalErrorCodeMissingEmail message:message];
+}
+
++ (NSError *)missingUsernameErrorWithMessage:(nullable NSString *)message{
+    return [self errorWithCode:FIRAuthInternalErrorCodeMissingUsername message:message];
 }
 
 + (NSError *)missingPhoneNumberErrorWithMessage:(nullable NSString *)message {

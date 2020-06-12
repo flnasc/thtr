@@ -989,6 +989,11 @@ static NSMutableDictionary *gKeychainServiceNameForAppName;
 
 - (void)createUserWithEmail:(NSString *)email
                    username:(NSString *)username
+                  firstname:(NSString *)firstname
+                   lastname:(NSString *)lastname
+                        age:(NSString *)age
+                       city:(NSString *)city
+                phonenumber:(NSString *)phonenumber
                    password:(NSString *)password
                  completion:(nullable FIRAuthDataResultCallback)completion {
   dispatch_async(FIRAuthGlobalWorkQueue(), ^{
@@ -996,6 +1001,11 @@ static NSMutableDictionary *gKeychainServiceNameForAppName;
         [self signInFlowAuthDataResultCallbackByDecoratingCallback:completion];
     [self internalCreateUserWithEmail:email
                              username:username
+                            firstname:firstname
+                             lastname:lastname
+                                  age:age
+                                 city:city
+                          phonenumber:phonenumber
                              password:password
                            completion:^(FIRSignUpNewUserResponse *_Nullable response,
                                         NSError *_Nullable error) {
@@ -1024,6 +1034,11 @@ static NSMutableDictionary *gKeychainServiceNameForAppName;
 
 - (void)createUserAndRetrieveDataWithEmail:(NSString *)email
                                   username:(NSString *)username
+                                 firstname:(NSString *)firstname
+                                  lastname:(NSString *)lastname
+                                       age:(NSString *)age
+                                      city:(NSString *)city
+                               phonenumber:(NSString *)phonenumber
                                   password:(NSString *)password
                                 completion:(nullable FIRAuthDataResultCallback)completion {
   dispatch_async(FIRAuthGlobalWorkQueue(), ^{
@@ -1031,6 +1046,11 @@ static NSMutableDictionary *gKeychainServiceNameForAppName;
         [self signInFlowAuthDataResultCallbackByDecoratingCallback:completion];
     [self internalCreateUserWithEmail:email
                              username:username
+                            firstname:firstname
+                             lastname:lastname
+                                  age:age
+                                 city:city
+                          phonenumber:phonenumber
                              password:password
                            completion:^(FIRSignUpNewUserResponse *_Nullable response,
                                         NSError *_Nullable error) {
@@ -1554,6 +1574,11 @@ static NSDictionary<NSString *, NSString *> *FIRAuthParseURL(NSString *urlString
  */
 - (void)internalCreateUserWithEmail:(NSString *)email
                            username:(NSString *)username
+                          firstname:(NSString *)firstname
+                           lastname:(NSString *)lastname
+                                age:(NSString *)age
+                               city:(NSString *)city
+                        phonenumber:(NSString *)phonenumber
                            password:(NSString *)password
                          completion:(nullable FIRSignupNewUserCallback)completion {
   FIRSignUpNewUserRequest *request =
@@ -1569,6 +1594,10 @@ static NSDictionary<NSString *, NSString *> *FIRAuthParseURL(NSString *urlString
   }
   if (![request.email length]) {
     completion(nil, [FIRAuthErrorUtils missingEmailErrorWithMessage:nil]);
+    return;
+  }
+  if (![request.username length]) {
+    completion(nil, [FIRAuthErrorUtils missingUsernameErrorWithMessage:nil]);
     return;
   }
   [FIRAuthBackend signUpNewUser:request callback:completion];

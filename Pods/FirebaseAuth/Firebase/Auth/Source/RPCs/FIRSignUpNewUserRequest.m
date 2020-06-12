@@ -28,14 +28,39 @@ static NSString *const kSignupNewUserEndpoint = @"signupNewUser";
  */
 static NSString *const kEmailKey = @"email";
 
-/** @var kPasswordKey
-    @brief The key for the "password" value in the request.
- */
+/** @var kUsernameKey
+   @brief The key for the "kUsername" value in the request.
+*/
 static NSString *const kUsernameKey = @"username";
 
-/** @var kUsernameKey
-    @brief The key for the "kDisplayName" value in the request.
- */
+/** @var kFirstnameKey
+   @brief The key for the "kFirstname" value in the request.
+*/
+static NSString *const kFirstnameKey = @"firstname";
+
+/** @var kLastnameKey
+   @brief The key for the "kLastname" value in the request.
+*/
+static NSString *const kLastnameKey = @"lastname";
+
+/** @var kAgeKey
+   @brief The key for the "kAgeKey" value in the request.
+*/
+static NSString *const kAgeKey = @"age";
+
+/** @var kCityKey
+   @brief The key for the "kCityKey" value in the request.
+*/
+static NSString *const kCityKey = @"city";
+
+/** @var kPhonenumberKey
+   @brief The key for the "kPhonenumberKey" value in the request.
+*/
+static NSString *const kPhonenumberKey = @"phonenumber";
+
+/** @var kPasswordKey
+   @brief The key for the "password" value in the request.
+*/
 static NSString *const kPasswordKey = @"password";
 
 /** @var kDisplayNameKey

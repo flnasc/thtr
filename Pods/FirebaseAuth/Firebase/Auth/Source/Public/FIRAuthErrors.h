@@ -360,6 +360,11 @@ typedef NS_ENUM(NSInteger, FIRAuthErrorCode) {
         describing which step of the JWT parsing process failed.
      */
     FIRAuthErrorCodeMalformedJWT = 18000,
+    
+    /** Indicates that a username was expected but one was not provided.
+    */
+    FIRAuthErrorCodeMissingUsername = 18001,
+    
 } NS_SWIFT_NAME(AuthErrorCode);
 
 @end
