@@ -21,20 +21,16 @@ class FollowFriendsViewController: UITableViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "Follow Friends"
+        navigationItem.rightBarButtonItem = doneButton
         
         self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellReuseIdentifier)
+        self.tableView.tableFooterView = UIView()
         
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        self.navigationItem.rightBarButtonItem = doneButton
-        //if user is not logged in, no usernames are displayed
         if Auth.auth().currentUser == nil {
-            self.usernames = []
+            self.usernames = [] //if user is not logged in, no usernames are displayed
             tableView.reloadData()
         } else {
-            loadData() //load usernames
+            loadData() //else, load usernames
         }
     }
     

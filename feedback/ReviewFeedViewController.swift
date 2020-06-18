@@ -51,7 +51,7 @@ class ReviewFeedViewController: UITableViewController {
         tableView.separatorStyle = .none
         
         navigationItem.rightBarButtonItems = [profileButton, followFriendsButton]
-
+        
         NotificationCenter.default.addObserver(self, selector: #selector(loadData), name: ShowCollector.updateNotification, object: nil)
     }
 
