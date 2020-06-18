@@ -168,7 +168,8 @@ class AccountViewController: UITableViewController {
 
     @objc
     func didSelectDoneButton() {
-        if Auth.auth().currentUser != nil {
+        //maybe wanna change this so done can be pressed in all cases?
+        if Auth.auth().currentUser != nil{
             dismiss(animated: true, completion: nil)
         }
     }
