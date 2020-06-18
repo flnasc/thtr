@@ -6,6 +6,23 @@
 //  Copyright © 2020 James Little. All rights reserved.
 //
 
+/*
+ Precondition: U. is logged in
+
+ Main Flow:
+ [X] U. selects Follow Friends Option
+ [X] The list of current users screen name is displayed
+ [] U. selects one or more friends
+ [] U. selects "Follow"
+
+ Extensions:
+ - Filtering
+    - User can type parts of user name
+    - The list of friends shall be filter, and display only contact names containing the search string
+
+ Post-Condition: An invitation is sent to all selected contacts
+ */
+
 import UIKit
 import Firebase
 import FirebaseDatabase
