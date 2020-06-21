@@ -12,8 +12,8 @@
  Main Flow:
  [X] U. selects Follow Friends Option
  [X] The list of current users screen name is displayed
- [] U. selects one or more friends
- [] U. selects "Follow"
+ [X] U. selects one or more friends
+ [X] U. selects "Follow"
 
  Extensions:
  - Filtering
@@ -41,13 +41,31 @@ class FollowFriendsViewController: UITableViewController{
         navigationItem.rightBarButtonItem = doneButton
         
         self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellReuseIdentifier)
-        self.tableView.tableFooterView = UIView()
+        self.tableView.tableFooterView = UIView() 
+        
+        self.tableView.allowsMultipleSelection = true
+        self.tableView.allowsMultipleSelectionDuringEditing = true
         
         if Auth.auth().currentUser == nil {
             self.usernames = [] //if user is not logged in, no usernames are displayed
             tableView.reloadData()
         } else {
-            loadData() //else, load usernames
+            loadData() //else, load usernames and follow button
+            
+            let bottomMargin = CGFloat(100) //Space between button and bottom of the screen
+            let buttonSize = CGSize(width: 100, height: 50)
+
+            let followButton = UIButton(frame: CGRect(
+                    x: 0, y: 0, width: buttonSize.width, height: buttonSize.height
+                ))
+
+            followButton.center = CGPoint(x: tableView.bounds.size.width / 2,
+                                    y: tableView.bounds.size.height - buttonSize.height / 2 - bottomMargin)
+
+            followButton.backgroundColor = Themer.DarkTheme.tint
+            followButton.setTitle("Follow", for: .normal)
+            followButton.addTarget(self, action: #selector(didSelectFollowButton), for: .touchUpInside)
+            self.view.addSubview(followButton)
         }
     }
     
@@ -76,10 +94,21 @@ class FollowFriendsViewController: UITableViewController{
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell:UITableViewCell = self.tableView.dequeueReusableCell(withIdentifier: cellReuseIdentifier) as UITableViewCell!
+        
         cell.textLabel?.text = self.usernames[indexPath.row]
+        cell.textLabel?.textColor = Themer.DarkTheme.text;
+        cell.backgroundColor = Themer.DarkTheme.background;
+        
+        //highlights cell(s) if tapped
+        if cell.isSelected {
+            cell.accessoryType = UITableViewCell.AccessoryType.checkmark
+        } else {
+            cell.accessoryType = UITableViewCell.AccessoryType.none
+        }
+        
         return cell
     }
-       
+   
     @objc
     func didSelectDoneButton() {
         if Auth.auth().currentUser != nil {
@@ -87,8 +116,15 @@ class FollowFriendsViewController: UITableViewController{
         }
     }
     
-    // MARK: - Navigation
+    @objc
+    func didSelectFollowButton(){
+        print("You followed someone")
+        //if cell.isSelected {
+        //if cell is selected, sent an invitation to those contacts
+        //change the status of followed in database to true and s
+    }
     
+    // MARK: - Navigation
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("You tapped cell number \(indexPath.row).")
     }
