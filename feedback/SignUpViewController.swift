@@ -354,7 +354,7 @@ class SignUpViewController: UITableViewController {
             //save user's information to users branch of database
             let rootRef = Database.database().reference()
             let usersRef = rootRef.child("users")
-            let thisChild = usersRef.child(self.usernameInput.text!)
+            let thisChild = usersRef.child(Auth.auth().currentUser!.uid)
             let userDict : [String: String] = ["email": email, "username": username, "firstname": firstname, "lastname": lastname, "age": age, "city": city, "phonenumber": phonenumber]
             thisChild.setValue(userDict){
               (error:Error?, ref:DatabaseReference) in
@@ -364,7 +364,7 @@ class SignUpViewController: UITableViewController {
                 print("Data saved successfully!")
               }
             }
-
+            
             NotificationCenter.default.post(
                 Notification(name: Notification.Name(rawValue: "UserSetNotification"),
                              object: user, userInfo: nil))
