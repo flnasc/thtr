@@ -127,8 +127,8 @@ class FollowFriendsViewController: UITableViewController{
         //saves the selected list of usernames to user_followers branch of database, storing them in the current user's followPending branch
         let rootRef = Database.database().reference()
         let userFollowersRef = rootRef.child("user_followers")
-        let thisChild = userFollowersRef.child(Auth.auth().currentUser!.uid)
-        let followerDict : [String : [String]] = ["followPending" : self.usersToFollow]
+        let thisChild = userFollowersRef.child(Auth.auth().currentUser!.uid).child("followPending")
+        let followerDict : [String : [String]] = ["usernames" : self.usersToFollow]
         thisChild.setValue(followerDict){
           (error:Error?, ref:DatabaseReference) in
           if let error = error {

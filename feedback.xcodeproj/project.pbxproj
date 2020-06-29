@@ -41,6 +41,8 @@
 		1AE20E5E2245C6E200EEEC4F /* ShowCollector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AE20E5C2245C6E200EEEC4F /* ShowCollector.swift */; };
 		1AEEEE54219E036E00FAB465 /* PhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AEEEE53219E036E00FAB465 /* PhotoViewController.swift */; };
 		1AEEEE56219E0D0D00FAB465 /* SliderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AEEEE55219E0D0D00FAB465 /* SliderViewController.swift */; };
+		9E32167224A9870C00072267 /* FollowRequestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E32167124A9870C00072267 /* FollowRequestCell.swift */; };
+		9E5A39C924A7AEB800C0F256 /* ManageFollowRequestsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5A39C824A7AEB800C0F256 /* ManageFollowRequestsViewController.swift */; };
 		9EC47904249AF882007C939D /* FollowFriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC47903249AF882007C939D /* FollowFriendsViewController.swift */; };
 		CFECFBD2B16A189ADF22B39B /* Pods_feedback.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E18C36C78DED3468F7B5481 /* Pods_feedback.framework */; };
 /* End PBXBuildFile section */
@@ -84,6 +86,8 @@
 		1AEEEE55219E0D0D00FAB465 /* SliderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliderViewController.swift; sourceTree = "<group>"; };
 		6E18C36C78DED3468F7B5481 /* Pods_feedback.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_feedback.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E697ED1D9D93D0ACE5FA1AA /* Pods-feedback.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-feedback.release.xcconfig"; path = "Pods/Target Support Files/Pods-feedback/Pods-feedback.release.xcconfig"; sourceTree = "<group>"; };
+		9E32167124A9870C00072267 /* FollowRequestCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowRequestCell.swift; sourceTree = "<group>"; };
+		9E5A39C824A7AEB800C0F256 /* ManageFollowRequestsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageFollowRequestsViewController.swift; sourceTree = "<group>"; };
 		9EC47903249AF882007C939D /* FollowFriendsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowFriendsViewController.swift; sourceTree = "<group>"; };
 		C2C698CD4FE699B59DA200BE /* Pods-feedback.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-feedback.debug.xcconfig"; path = "Pods/Target Support Files/Pods-feedback/Pods-feedback.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -161,10 +165,11 @@
 				1AB165952150643B00F273E7 /* Account VCs */,
 				1AB16593214FF7FD00F273E7 /* AccountViewController.swift */,
 				9EC47903249AF882007C939D /* FollowFriendsViewController.swift */,
+				9E5A39C824A7AEB800C0F256 /* ManageFollowRequestsViewController.swift */,
 				1A0D31932188D11E00617BFA /* Action Bar VCs */,
 				1AA413B1221207560078DA89 /* LaunchModalViewController.swift */,
-				1A1A161D2138BD03002EEE68 /* ReviewEditViewController.swift */,
 				1A1A161B2138B12E002EEE68 /* ReviewFeedViewController.swift */,
+				1A1A161D2138BD03002EEE68 /* ReviewEditViewController.swift */,
 				1A086D582224EAC700CC8451 /* Show VCs */,
 			);
 			name = Controllers;
@@ -194,6 +199,7 @@
 			isa = PBXGroup;
 			children = (
 				1A6786742163EF9C00E7A79C /* ReviewFeedCell.swift */,
+				9E32167124A9870C00072267 /* FollowRequestCell.swift */,
 				1A0D318D2187CD1000617BFA /* THTableViewCell.swift */,
 			);
 			name = Cells;
@@ -425,6 +431,8 @@
 				1AEEEE54219E036E00FAB465 /* PhotoViewController.swift in Sources */,
 				1A2775C82232EFE300D14310 /* GlobalReviewCoordinator.swift in Sources */,
 				1A1A161C2138B12E002EEE68 /* ReviewFeedViewController.swift in Sources */,
+				9E5A39C924A7AEB800C0F256 /* ManageFollowRequestsViewController.swift in Sources */,
+				9E32167224A9870C00072267 /* FollowRequestCell.swift in Sources */,
 				1A558E4D222C813A00D7B4B7 /* String+Slugify.swift in Sources */,
 				1AD7B620221B36C000E7D041 /* Show.swift in Sources */,
 				1A0D31902187D00900617BFA /* THLabel.swift in Sources */,

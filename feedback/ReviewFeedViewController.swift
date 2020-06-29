@@ -43,6 +43,13 @@ class ReviewFeedViewController: UITableViewController {
         action: #selector(displayFollowFriendsViewController(sender:))
     )
     
+    lazy var manageFollowRequestsButton = UIBarButtonItem(
+        image: UIImage(named: "requests"),
+        style: .plain,
+        target: self,
+        action: #selector(displayManageFollowRequestsViewController(sender:))
+    )
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "Review Feed"
@@ -50,7 +57,8 @@ class ReviewFeedViewController: UITableViewController {
         tableView.register(ReviewFeedCell.self, forCellReuseIdentifier: cellReuseIdentifier)
         tableView.separatorStyle = .none
         
-        navigationItem.rightBarButtonItems = [profileButton, followFriendsButton]
+        navigationItem.rightBarButtonItem = profileButton
+        navigationItem.leftBarButtonItems = [followFriendsButton, manageFollowRequestsButton]
         
         NotificationCenter.default.addObserver(self, selector: #selector(loadData), name: ShowCollector.updateNotification, object: nil)
     }
@@ -62,6 +70,7 @@ class ReviewFeedViewController: UITableViewController {
             tableView.reloadData()
             displayAccountViewController(sender: nil)
             displayFollowFriendsViewController(sender: nil)
+            displayManageFollowRequestsViewController(sender: nil)
         } else {
             loadData()
         }
@@ -159,6 +168,12 @@ class ReviewFeedViewController: UITableViewController {
     @objc
     func displayFollowFriendsViewController(sender: UIBarButtonItem?) {
         let popoverRootVC = UINavigationController(rootViewController: FollowFriendsViewController())
+        present(popoverRootVC, animated: true, completion: nil)
+    }
+    
+    @objc
+    func displayManageFollowRequestsViewController(sender: UIBarButtonItem?){
+        let popoverRootVC = UINavigationController(rootViewController: ManageFollowRequestsViewController())
         present(popoverRootVC, animated: true, completion: nil)
     }
 
