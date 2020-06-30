@@ -41,13 +41,11 @@ class ManageFollowRequestsViewController: UITableViewController {
     @objc
     func loadData() {
         let rootRef = Database.database().reference()
-        let query = rootRef.child("user_followers").child(Auth.auth().currentUser!.uid).child("followPending").child("usernames")
+        let query = rootRef.child("user_followers").child(Auth.auth().currentUser!.uid).child("followPending")
         query.observeSingleEvent(of: .value, with: { (snapshot) in
             for child in snapshot.children {
                 let snap = child as! DataSnapshot
-                let key = snap.key
                 let value = snap.value
-                print("key = \(key)  value = \(value!)")
                 self.followRequests.append(value as! String)
                 print(value as! String)
             }
@@ -97,19 +95,20 @@ class ManageFollowRequestsViewController: UITableViewController {
         
         //add that username to following
         let rootRef = Database.database().reference()
-        let thisChild = rootRef.child("user_followers").child(Auth.auth().currentUser!.uid).child("following")
-        let followingDict : [String : String] = ["username" : followRequests[indexPathRow]]
-        thisChild.setValue(followingDict){
-          (error:Error?, ref:DatabaseReference) in
-          if let error = error {
-            print("Data could not be saved: \(error).")
-          } else {
-            print("Data saved successfully!")
-          }
+        let query = rootRef.child("user_followers").child(Auth.auth().currentUser!.uid).child("following").child(followRequests[indexPathRow])
+        query.setValue(followRequests[indexPathRow]){
+            (error:Error?, ref:DatabaseReference) in
+            if let error = error {
+              print("Data could not be saved: \(error).")
+            } else {
+              print("Data saved successfully!")
+            }
         }
         
         //remove that username from followPending
-        Database.database().reference().child("user_followers").child(Auth.auth().currentUser!.uid).child("followPending").child("usernames").child(String(indexPathRow)).removeValue()
+        Database.database().reference().child("user_followers").child(Auth.auth().currentUser!.uid).child("followPending").child(followRequests[indexPathRow]).removeValue()
+        
+        followRequests.remove(at: indexPathRow)
         
         tableView.reloadData()
     }
@@ -119,8 +118,12 @@ class ManageFollowRequestsViewController: UITableViewController {
         print("declined")
         print("You declined cell number \(indexPathRow).")
         
+        //followRequests[indexPathRow] != child.value
+        
         //remove that username from followPending
-        Database.database().reference().child("user_followers").child(Auth.auth().currentUser!.uid).child("followPending").child("usernames").child(String(indexPathRow)).removeValue()
+        Database.database().reference().child("user_followers").child(Auth.auth().currentUser!.uid).child("followPending").child(followRequests[indexPathRow]).removeValue()
+        
+        followRequests.remove(at: indexPathRow)
         
         tableView.reloadData()
     }

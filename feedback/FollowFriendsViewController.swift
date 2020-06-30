@@ -33,6 +33,9 @@ class FollowFriendsViewController: UITableViewController{
     
     var usernames: [String] = []
     var usersToFollow: [String] = []
+    var following: [String] = []
+    
+    var thisUsername = String()
 
     let cellReuseIdentifier = "cell"
     
@@ -75,21 +78,33 @@ class FollowFriendsViewController: UITableViewController{
     func loadData() {
         
         let rootRef = Database.database().reference()
-        let query = rootRef.child("users").queryOrdered(byChild: "username")
-        query.observeSingleEvent(of: .value) {
-            (snapshot) in
+        let userQuery = rootRef.child("users")
+        let followerQuery = rootRef.child("user_followers").child(Auth.auth().currentUser!.uid).child("following")
+        
+        followerQuery.observeSingleEvent(of: .value) { snapshot in
+            for child in snapshot.children.allObjects as! [DataSnapshot] {
+                let value = child.value as! String
+                self.following.append(value)
+            }
+            print(self.following)
+        }
+        
+        userQuery.observeSingleEvent(of: .value) { (snapshot) in
             for child in snapshot.children.allObjects as! [DataSnapshot] {
                 let value = child.value as? NSDictionary
                 let username = value?["username"] as? String ?? ""
-                self.usernames.append(username)
+                //do not display current user's username
+                if Auth.auth().currentUser!.uid != child.key {
+                    //do not display people the current user is already following
+                    if !self.following.contains(username){
+                        self.usernames.append(username)
+                    }
+                }
                 print(username)
             }
             self.tableView.reloadData()
             print(self.usernames)
         }
-        //do not display current user (if UID of current user matches up to a parent branch, don't add that username)
-        //if snapshot.description != Auth.auth().currentUser?.uid {
-        //do not display users who are currently requested
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -124,18 +139,18 @@ class FollowFriendsViewController: UITableViewController{
     func didSelectFollowButton(){
         print("You followed someone")
         
-        //saves the selected list of usernames to user_followers branch of database, storing them in the current user's followPending branch
-        let rootRef = Database.database().reference()
-        let userFollowersRef = rootRef.child("user_followers")
-        let thisChild = userFollowersRef.child(Auth.auth().currentUser!.uid).child("followPending")
-        let followerDict : [String : [String]] = ["usernames" : self.usersToFollow]
-        thisChild.setValue(followerDict){
-          (error:Error?, ref:DatabaseReference) in
-          if let error = error {
-            print("Data could not be saved: \(error).")
-          } else {
-            print("Data saved successfully!")
-          }
+        //saves the selected list of usernames to followPending
+        for user in self.usersToFollow{
+            let rootRef = Database.database().reference()
+            let query = rootRef.child("user_followers").child(Auth.auth().currentUser!.uid).child("followPending").child(user)
+            query.setValue(user){
+                (error:Error?, ref:DatabaseReference) in
+                if let error = error {
+                  print("Data could not be saved: \(error).")
+                } else {
+                  print("Data saved successfully!")
+                }
+            }
         }
         
         tableView.reloadData()

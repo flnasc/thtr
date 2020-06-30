@@ -41,6 +41,7 @@
 		1AE20E5E2245C6E200EEEC4F /* ShowCollector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AE20E5C2245C6E200EEEC4F /* ShowCollector.swift */; };
 		1AEEEE54219E036E00FAB465 /* PhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AEEEE53219E036E00FAB465 /* PhotoViewController.swift */; };
 		1AEEEE56219E0D0D00FAB465 /* SliderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AEEEE55219E0D0D00FAB465 /* SliderViewController.swift */; };
+		9E0DF8AA24AA8B8100EFC760 /* ReviewFeed.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E0DF8A924AA8B8100EFC760 /* ReviewFeed.storyboard */; };
 		9E32167224A9870C00072267 /* FollowRequestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E32167124A9870C00072267 /* FollowRequestCell.swift */; };
 		9E5A39C924A7AEB800C0F256 /* ManageFollowRequestsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5A39C824A7AEB800C0F256 /* ManageFollowRequestsViewController.swift */; };
 		9EC47904249AF882007C939D /* FollowFriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC47903249AF882007C939D /* FollowFriendsViewController.swift */; };
@@ -86,6 +87,7 @@
 		1AEEEE55219E0D0D00FAB465 /* SliderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliderViewController.swift; sourceTree = "<group>"; };
 		6E18C36C78DED3468F7B5481 /* Pods_feedback.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_feedback.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E697ED1D9D93D0ACE5FA1AA /* Pods-feedback.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-feedback.release.xcconfig"; path = "Pods/Target Support Files/Pods-feedback/Pods-feedback.release.xcconfig"; sourceTree = "<group>"; };
+		9E0DF8A924AA8B8100EFC760 /* ReviewFeed.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ReviewFeed.storyboard; sourceTree = "<group>"; };
 		9E32167124A9870C00072267 /* FollowRequestCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowRequestCell.swift; sourceTree = "<group>"; };
 		9E5A39C824A7AEB800C0F256 /* ManageFollowRequestsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageFollowRequestsViewController.swift; sourceTree = "<group>"; };
 		9EC47903249AF882007C939D /* FollowFriendsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowFriendsViewController.swift; sourceTree = "<group>"; };
@@ -182,6 +184,7 @@
 				1A1A1613213870E5002EEE68 /* Info.plist */,
 				1AA8107521457EAB00D395E1 /* GoogleService-Info.plist */,
 				1A1A1610213870E5002EEE68 /* LaunchScreen.storyboard */,
+				9E0DF8A924AA8B8100EFC760 /* ReviewFeed.storyboard */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -320,6 +323,7 @@
 			files = (
 				1A1A1612213870E5002EEE68 /* LaunchScreen.storyboard in Resources */,
 				1A1A160F213870E5002EEE68 /* Assets.xcassets in Resources */,
+				9E0DF8AA24AA8B8100EFC760 /* ReviewFeed.storyboard in Resources */,
 				1AA8107621457EAB00D395E1 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
