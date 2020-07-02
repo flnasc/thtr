@@ -33,7 +33,9 @@ class FollowFriendsViewController: UITableViewController{
     
     var usernames: [String] = []
     var usersToFollow: [String] = []
+    
     var following: [String] = []
+    var pending: [String] = []
     
     var thisUsername = String()
 
@@ -79,14 +81,23 @@ class FollowFriendsViewController: UITableViewController{
         
         let rootRef = Database.database().reference()
         let userQuery = rootRef.child("users")
-        let followerQuery = rootRef.child("user_followers").child(Auth.auth().currentUser!.uid).child("following")
+        let followingQuery = rootRef.child("user_followers").child(Auth.auth().currentUser!.uid).child("following")
+        let pendingQuery = rootRef.child("user_followers").child(Auth.auth().currentUser!.uid).child("followPending")
         
-        followerQuery.observeSingleEvent(of: .value) { snapshot in
+        followingQuery.observeSingleEvent(of: .value) { snapshot in
             for child in snapshot.children.allObjects as! [DataSnapshot] {
                 let value = child.value as! String
                 self.following.append(value)
             }
             print(self.following)
+        }
+        
+        pendingQuery.observeSingleEvent(of: .value) { snapshot in
+            for child in snapshot.children.allObjects as! [DataSnapshot] {
+                let value = child.value as! String
+                self.pending.append(value)
+            }
+            print(self.pending)
         }
         
         userQuery.observeSingleEvent(of: .value) { (snapshot) in
@@ -117,6 +128,15 @@ class FollowFriendsViewController: UITableViewController{
         cell.textLabel?.text = self.usernames[indexPath.row]
         cell.textLabel?.textColor = Themer.DarkTheme.text;
         cell.backgroundColor = Themer.DarkTheme.background;
+        
+        //if the username is already in the current user's followPending, disable selection and display "Requested" label
+        if self.pending.contains(self.usernames[indexPath.row]){
+            cell.isUserInteractionEnabled = false
+            let pendingButton = UIButton(frame: CGRect(x: UIScreen.main.bounds.width-110, y: 5, width: 100, height: 30))
+            pendingButton.setTitle("Requested", for: .normal)
+            pendingButton.backgroundColor = Themer.DarkTheme.placeholderText
+            cell.addSubview(pendingButton)
+        }
         
         //highlights cell(s) if tapped
         if cell.isSelected {
@@ -151,8 +171,9 @@ class FollowFriendsViewController: UITableViewController{
                   print("Data saved successfully!")
                 }
             }
+            self.pending.append(user)
         }
-        
+
         tableView.reloadData()
     }
     
