@@ -9,14 +9,16 @@
 import UIKit
 import MessageUI
 import Firebase
+import FirebaseStorage
 
-class AccountViewController: UITableViewController {
+class AccountViewController: UITableViewController, MFMailComposeViewControllerDelegate {
 
     enum CellType {
         case signUp
         case logIn
         case changePassword
         case signOut
+        case changeProfilePicture
         case reportAProblem
         case privacyPolicy
         case versionInfo
@@ -38,7 +40,8 @@ class AccountViewController: UITableViewController {
     var loggedInVisibleCells: [CellType] {
         return [
             CellType.changePassword,
-            CellType.signOut
+            CellType.signOut,
+            CellType.changeProfilePicture
             ] + AccountViewController.alwaysVisibleCells
     }
 
@@ -52,8 +55,12 @@ class AccountViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        visibleCells = loggedOutVisibleCells
+        
+        if Auth.auth().currentUser != nil{
+            visibleCells = loggedInVisibleCells
+        } else {
+            visibleCells = loggedOutVisibleCells
+        }
 
         self.navigationItem.rightBarButtonItem = doneButton
         self.navigationItem.title = defaultNavigationTitle
@@ -94,6 +101,8 @@ class AccountViewController: UITableViewController {
             cell.textLabel?.text = "Privacy Policy"
         case .reportAProblem:
             cell.textLabel?.text = "Report a Problem"
+        case .changeProfilePicture:
+            cell.textLabel?.text = "Change Profile Picture"
         case .versionInfo:
             let appVersionString: String = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? ""
             let buildNumber: String = Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as? String ?? ""
@@ -161,6 +170,11 @@ class AccountViewController: UITableViewController {
             let privacyVC = PrivacyPolicyViewController()
             let popoverRootVC = UINavigationController(rootViewController: privacyVC)
             present(popoverRootVC, animated: true, completion: nil)
+        case .changeProfilePicture:
+            let myPickerController = UIImagePickerController()
+            myPickerController.delegate = self
+            myPickerController.sourceType = .photoLibrary
+            present(myPickerController, animated: true, completion: nil)
         case .versionInfo:
             return
         }
@@ -168,7 +182,6 @@ class AccountViewController: UITableViewController {
 
     @objc
     func didSelectDoneButton() {
-        //maybe wanna change this so done can be pressed in all cases?
         if Auth.auth().currentUser != nil{
             dismiss(animated: true, completion: nil)
         }
@@ -206,8 +219,82 @@ class AccountViewController: UITableViewController {
 
 }
 
-extension AccountViewController: MFMailComposeViewControllerDelegate {
-    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
-        self.dismiss(animated: true, completion: nil)
+extension AccountViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
+    }
+
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
+        if let image = info[.originalImage] as? UIImage {
+            print("about to save")
+            saveImage(image)
+            print("worked")
+        } else {
+            print("Something went wrong")
+        }
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func saveImage(_ image: UIImage) {
+        let storage = Storage.storage()
+        let storageRef = storage.reference()
+        let imagesRef = storageRef.child("profilePic")
+        
+        let compression: CGFloat = 0.8
+        guard let data = image.jpegData(compressionQuality: compression) else {
+            return
+        }
+        print("Compression quality chosen: \(compression)")
+
+        let fileKey = "\(Date().timeIntervalSince1970)".components(separatedBy: ".")[0]
+        let filePath = "\(Auth.auth().currentUser!.uid)/\(fileKey)"
+
+        let metadata = StorageMetadata()
+        metadata.contentType = "image/jpg"
+
+        let uploadTask = imagesRef.child(filePath).putData(data, metadata: metadata)
+
+        uploadTask.observe(.success) { snapshot in
+            let alert = UIAlertController(title: "File upload completed", message: "Your new profile picture is set!", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+
+            /*let photoValue = GlobalReviewCoordinator.getCurrentReview()?.extras["photo"]
+            var outputPhotoValue: [String: String] = [:]
+
+            if let imagePath = photoValue as? String {
+                let pathKey = imagePath.components(separatedBy: ".")[0]
+                outputPhotoValue = [pathKey: imagePath]
+            } else if let imagePathDict = photoValue as? [String: String] {
+                outputPhotoValue = imagePathDict
+            }
+
+            outputPhotoValue[fileKey] = snapshot.metadata?.path
+            GlobalReviewCoordinator.getCurrentReview()?.extras["photo"] = outputPhotoValue*/
+        }
+
+        uploadTask.observe(.failure) { snapshot in
+            print("Failure")
+            if let error = snapshot.error as NSError? {
+                switch StorageErrorCode(rawValue: error.code)! {
+                case .objectNotFound:
+                    // File doesn't exist
+                    break
+                case .unauthorized:
+                    // User doesn't have permission to access file
+                    break
+                case .cancelled:
+                    // User canceled the upload
+                    break
+                    /* ... */
+                case .unknown:
+                    // Unknown error occurred, inspect the server response
+                    break
+                default:
+                    // A separate error occurred. This is a good place to retry the upload.
+                    break
+                }
+            }
+        }
     }
 }

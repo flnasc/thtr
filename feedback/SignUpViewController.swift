@@ -237,7 +237,7 @@ class SignUpViewController: UITableViewController {
         passwordConfirmField.addArrangedSubview(passwordConfirmInput)
 
         confirmButtonContainer.addArrangedSubview(confirmButton)
-
+       
         confirmButton.setTitle("Sign Up", for: .normal)
         confirmButton.setTitleColor(Themer.DarkTheme.tint, for: .normal)
         confirmButton.addTarget(self, action: #selector(submitForm), for: .touchUpInside)
