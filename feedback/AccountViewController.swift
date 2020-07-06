@@ -246,7 +246,7 @@ extension AccountViewController: UIImagePickerControllerDelegate, UINavigationCo
         }
         print("Compression quality chosen: \(compression)")
 
-        let fileKey = "\(Date().timeIntervalSince1970)".components(separatedBy: ".")[0]
+        let fileKey = "\(Auth.auth().currentUser!.uid)-profPic".components(separatedBy: ".")[0]
         let filePath = "\(Auth.auth().currentUser!.uid)/\(fileKey)"
 
         let metadata = StorageMetadata()
@@ -258,19 +258,6 @@ extension AccountViewController: UIImagePickerControllerDelegate, UINavigationCo
             let alert = UIAlertController(title: "File upload completed", message: "Your new profile picture is set!", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
             self.present(alert, animated: true, completion: nil)
-
-            /*let photoValue = GlobalReviewCoordinator.getCurrentReview()?.extras["photo"]
-            var outputPhotoValue: [String: String] = [:]
-
-            if let imagePath = photoValue as? String {
-                let pathKey = imagePath.components(separatedBy: ".")[0]
-                outputPhotoValue = [pathKey: imagePath]
-            } else if let imagePathDict = photoValue as? [String: String] {
-                outputPhotoValue = imagePathDict
-            }
-
-            outputPhotoValue[fileKey] = snapshot.metadata?.path
-            GlobalReviewCoordinator.getCurrentReview()?.extras["photo"] = outputPhotoValue*/
         }
 
         uploadTask.observe(.failure) { snapshot in
