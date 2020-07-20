@@ -19,11 +19,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
 
         Themer.configure()
-
-        let reviewFeedVC = ReviewFeedViewController()
-        let rootVC = THNavigationController(rootViewController: reviewFeedVC)
-        window!.rootViewController = rootVC
+    
+        window!.rootViewController = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController()!
         window!.makeKeyAndVisible()
+        
         return true
     }
 

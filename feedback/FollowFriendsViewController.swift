@@ -29,8 +29,6 @@ import FirebaseDatabase
 
 class FollowFriendsViewController: UITableViewController{
     
-    lazy var doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItem.Style.done, target: self, action: #selector(didSelectDoneButton))
-    
     var usernames: [String] = []
     var usersToFollow: [String] = []
     
@@ -38,19 +36,26 @@ class FollowFriendsViewController: UITableViewController{
     var pending: [String] = []
     
     var thisUsername = String()
+    
+    lazy var profileButton = UIBarButtonItem(
+        image: UIImage(named: "account"),
+        style: .plain,
+        target: self,
+        action: #selector(displayAccountViewController(sender:))
+    )
 
     let cellReuseIdentifier = "cell"
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = "Follow Friends"
-        navigationItem.rightBarButtonItem = doneButton
-        
+
         self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellReuseIdentifier)
         self.tableView.tableFooterView = UIView() 
         
         self.tableView.allowsMultipleSelection = true
         self.tableView.allowsMultipleSelectionDuringEditing = true
+        
+        navigationItem.rightBarButtonItem = profileButton
         
         if Auth.auth().currentUser == nil {
             self.usernames = [] //if user is not logged in, no usernames are displayed
@@ -58,7 +63,7 @@ class FollowFriendsViewController: UITableViewController{
         } else {
             loadData() //else, load usernames and follow button
             
-            let bottomMargin = CGFloat(100) //Space between button and bottom of the screen
+            let bottomMargin = CGFloat(200) //Space between button and bottom of the screen
             let buttonSize = CGSize(width: 100, height: 50)
 
             let followButton = UIButton(frame: CGRect(
@@ -81,8 +86,8 @@ class FollowFriendsViewController: UITableViewController{
         
         let rootRef = Database.database().reference()
         let userQuery = rootRef.child("users")
-        let followingQuery = rootRef.child("user_followers").child(Auth.auth().currentUser!.uid).child("following")
-        let pendingQuery = rootRef.child("user_followers").child(Auth.auth().currentUser!.uid).child("followPending")
+        let followingQuery = rootRef.child("users").child(Auth.auth().currentUser!.uid).child("following").child("approved")
+        let pendingQuery = rootRef.child("users").child(Auth.auth().currentUser!.uid).child("following").child("pending")
         
         followingQuery.observeSingleEvent(of: .value) { snapshot in
             for child in snapshot.children.allObjects as! [DataSnapshot] {
@@ -147,13 +152,6 @@ class FollowFriendsViewController: UITableViewController{
         
         return cell
     }
-   
-    @objc
-    func didSelectDoneButton() {
-        if Auth.auth().currentUser != nil {
-            dismiss(animated: true, completion: nil)
-        }
-    }
     
     @objc
     func didSelectFollowButton(){
@@ -162,7 +160,7 @@ class FollowFriendsViewController: UITableViewController{
         //saves the selected list of usernames to followPending
         for user in self.usersToFollow{
             let rootRef = Database.database().reference()
-            let query = rootRef.child("user_followers").child(Auth.auth().currentUser!.uid).child("followPending").child(user)
+            let query = rootRef.child("users").child(Auth.auth().currentUser!.uid).child("following").child("pending").child(user)
             query.setValue(user){
                 (error:Error?, ref:DatabaseReference) in
                 if let error = error {
@@ -192,6 +190,12 @@ class FollowFriendsViewController: UITableViewController{
         //remove username from usersToFollow
         self.usersToFollow.removeAll(where: { $0 == self.usernames[indexPath.row] })
         print(usersToFollow)
+    }
+    
+    @objc
+    func displayAccountViewController(sender: UIBarButtonItem?) {
+        let popoverRootVC = UINavigationController(rootViewController: AccountViewController())
+        present(popoverRootVC, animated: true, completion: nil)
     }
     
 }

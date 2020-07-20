@@ -24,10 +24,14 @@
 	<true/>
 	<key>NSCameraUsageDescription</key>
 	<string>THTR uses your camera to let you include photographs with reviews.</string>
+	<key>NSMainStoryboardFile</key>
+	<string>Main</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>THTR uses your photo library to let you include photographs with reviews.</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
+	<key>UIMainStoryboardFile</key>
+	<string>Main</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>
