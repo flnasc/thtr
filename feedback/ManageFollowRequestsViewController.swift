@@ -42,6 +42,10 @@ class ManageFollowRequestsViewController: UITableViewController {
 
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        self.tableView.reloadData()
+    }
+    
     // MARK: - Table View Data Source
     @objc
     func loadData() {

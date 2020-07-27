@@ -64,7 +64,7 @@ class FollowFriendsViewController: UITableViewController{
             loadData() //else, load usernames and follow button
             
             let bottomMargin = CGFloat(200) //Space between button and bottom of the screen
-            let buttonSize = CGSize(width: 100, height: 50)
+            let buttonSize = CGSize(width: 110, height: 50)
 
             let followButton = UIButton(frame: CGRect(
                     x: 0, y: 0, width: buttonSize.width, height: buttonSize.height
@@ -72,12 +72,16 @@ class FollowFriendsViewController: UITableViewController{
 
             followButton.center = CGPoint(x: tableView.bounds.size.width / 2,
                                     y: tableView.bounds.size.height - buttonSize.height / 2 - bottomMargin)
-
             followButton.backgroundColor = Themer.DarkTheme.tint
-            followButton.setTitle("Follow", for: .normal)
+            followButton.setTitle(" Follow", for: .normal)
+            followButton.setImage(UIImage(named:"follow"), for: .normal)
             followButton.addTarget(self, action: #selector(didSelectFollowButton), for: .touchUpInside)
             self.view.addSubview(followButton)
         }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        self.tableView.reloadData()
     }
     
     // MARK: - Table View Data Source
